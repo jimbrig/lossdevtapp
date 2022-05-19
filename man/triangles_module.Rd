@@ -11,13 +11,11 @@ mod_triangles_ui(id, loss_data = loss_data_all)
 mod_triangles_server(id, loss_data, selected_eval)
 }
 \arguments{
-\item{id, input, output, session}{Internal parameters for {shiny}.}
+\item{id}{ID associated with UI counterpart}
 
 \item{loss_data}{loss data}
 
 \item{selected_eval}{selected evaluation date}
-
-\item{id}{ID associated with UI counterpart}
 }
 \description{
 Shiny module containing `mod_triangles_ui` and `mod_triangles_server`, respectively.

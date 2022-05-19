@@ -13,7 +13,7 @@ NULL
 #'
 #' @description A shiny Module.
 #'
-#' @param id,input,output,session Internal parameters for {shiny}.
+#' @param id Internal parameters for {shiny}.
 #' @param loss_data non-reactive loss data.frame
 #'
 #' @rdname triangles_module
@@ -21,7 +21,7 @@ NULL
 #' @export
 #'
 #' @importFrom DT DTOutput
-#' @importFrom shiny NS tagList fluidRow column icon helpText htmlOutput
+#' @importFrom shiny NS tagList fluidRow column icon helpText htmlOutput div
 #' @importFrom shinycssloaders withSpinner
 #' @importFrom shinydashboard box
 #' @importFrom shinyWidgets radioGroupButtons numericInputIcon
@@ -68,7 +68,7 @@ mod_triangles_ui <- function(id, loss_data = loss_data_all){
           )
         )
       ),
-      box(
+      shinydashboard::box(
         title = "Loss Development Triangle",
         width = 12,
         collapsible = TRUE,
@@ -76,9 +76,9 @@ mod_triangles_ui <- function(id, loss_data = loss_data_all){
         DT::DTOutput(ns("triangle")) |>
           shinycssloaders::withSpinner() #image = 'images/pwc_spinner_01.gif')
       ),
-      div(
+      shiny::div(
         id = ns("devt"),
-        box(
+        shinydashboard::box(
           title = "Age to Age Triangle",
           collapsible = TRUE,
           width = 12,
@@ -102,12 +102,12 @@ mod_triangles_ui <- function(id, loss_data = loss_data_all){
 #' @export
 #'
 #' @importFrom dplyr rename filter mutate bind_rows
-#' @importFrom DT renderDT datatable JS formatCurrency
+#' @importFrom DT renderDT formatCurrency datatable JS
 #' @importFrom purrr map2_dfr
 #' @importFrom rlang set_names
-#' @importFrom shiny moduleServer observeEvent renderUI reactive
+#' @importFrom shiny moduleServer observeEvent renderUI tagList tags reactive req
 #' @importFrom shinyjs show hide
-#' @importFrom tibble add_row
+#' @importFrom tibble add_row tibble
 #' @importFrom tidyr pivot_wider
 mod_triangles_server <- function(id, loss_data, selected_eval){
   shiny::moduleServer( id, function(input, output, session){
@@ -132,12 +132,12 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
 
       eval_txt <- paste0("Latest Evaluation Date of ", format(selected_eval(), "%B %d, %Y"))
 
-      tagList(
-        tags$h3(
+      shiny::tagList(
+        shiny::tags$h3(
           class = "text-center",
           txt
         ),
-        tags$h4(
+        shiny::tags$h4(
           class = "text-center",
           eval_txt
         )
@@ -145,7 +145,7 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
 
     })
 
-    triangle_data <- reactive({
+    triangle_data <- shiny::reactive({
 
       # browser()
 
@@ -258,7 +258,7 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
     })
 
     devt_prep <- shiny::reactive({
-      req(input$type != "case")
+      shiny::req(input$type != "case")
 
       out <- triangle_data()$age_to_age_triangle |>
         tibble::add_row()
@@ -268,7 +268,7 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
         triangle_data()$averages
       )
 
-      tail_df <- tibble(
+      tail_df <- tibble::tibble(
         "tail" = rep(NA, times = nrow(out))
       )
 

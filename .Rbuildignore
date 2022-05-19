@@ -12,3 +12,6 @@ $run_dev.*
 ^\.github$
 ^cliff\.toml$
 ^CHANGELOG\.md$
+^app\.R$
+^rsconnect$
+^Dockerfile$
