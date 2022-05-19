@@ -30,6 +30,7 @@ All notable changes to this project will be documented in this file.
 - Update README with badges and installation instructions
 - Add dataset documentation for issue #8
 - Render data docs man pages
+- Sync NEWS.md with changelog
 
 ### Features
 
