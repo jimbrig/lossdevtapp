@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file.
 - Replace all magrittr pipe's (`%>%`) with new R pipe (`|>`)
 - Import rlang's `.env` and `.data` for globalVariables
 - Replace magrittr pipe
+- Remove summaryrow dep
 
 ### Documentation
 
