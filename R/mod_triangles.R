@@ -60,7 +60,7 @@ mod_triangles_ui <- function(id, loss_data = loss_data_all){
         width = 12,
         collapsible = TRUE,
         shiny::htmlOutput(ns("tri_title")),
-        DT::DTOutput(ns("triangle")) %>%
+        DT::DTOutput(ns("triangle")) |>
           shinycssloaders::withSpinner() #image = 'images/pwc_spinner_01.gif')
       ),
       div(
@@ -69,7 +69,7 @@ mod_triangles_ui <- function(id, loss_data = loss_data_all){
           title = "Age to Age Triangle",
           collapsible = TRUE,
           width = 12,
-          DT::DTOutput(ns("devt_factors")) %>%
+          DT::DTOutput(ns("devt_factors")) |>
             shinycssloaders::withSpinner() #image = 'images/pwc_spinner_01.gif')
         )
       )
@@ -131,7 +131,7 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
       lmt <- if (is.na(input$lmt)) NA else input$lmt * 1000
       type <- input$type
 
-      agg_dat <- loss_data() %>%
+      agg_dat <- loss_data() |>
         aggregate_loss_data(limit = lmt)
 
       tri_dat <- dev_tri(
@@ -140,8 +140,8 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
         value = agg_dat[[type]]
       )
 
-      tri <- tri_dat %>%
-        spread_tri() %>%
+      tri <- tri_dat |>
+        spread_tri() |>
         dplyr::rename(AYE = origin)
 
       if (type == "case") {
@@ -154,16 +154,16 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
         )
       }
 
-      ata_dat <- tri_dat %>%
-        ata_tri(loss_dat) %>%
+      ata_dat <- tri_dat |>
+        ata_tri(loss_dat) |>
         dplyr::filter(!is.na(value))
 
-      ata_tri <- ata_dat %>%
-        spread_tri() %>%
-        dplyr::rename(AYE = origin) %>%
+      ata_tri <- ata_dat |>
+        spread_tri() |>
+        dplyr::rename(AYE = origin) |>
         dplyr::mutate(AYE = as.character(AYE))
 
-      # ata_tri <- triangle_data[[input$type]]$age_to_age_triangle %>%
+      # ata_tri <- triangle_data[[input$type]]$age_to_age_triangle |>
       #   mutate(AYE = as.character(AYE))
 
       ldf_avg <- idf(ldf_avg(tri_dat)$idfs)
@@ -180,9 +180,9 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
                      "CDF:" = cdf)
 
       hold <- purrr::map2_dfr(params, names(params), function(dat, type_ ) {
-        dat %>%
-          tidyr::pivot_wider(names_from = age, values_from = names(dat)[2]) %>%
-          rlang::set_names(names(ata_tri)) %>%
+        dat |>
+          tidyr::pivot_wider(names_from = age, values_from = names(dat)[2]) |>
+          rlang::set_names(names(ata_tri)) |>
           dplyr::mutate(AYE = type_)
       })
 
@@ -228,7 +228,7 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
             list(targets = "_all", className = "dt-center", width = col_width)
           )
         )
-      ) %>%
+      ) |>
         DT::formatCurrency(
           column = 2:length(out),
           currency = "",
@@ -239,7 +239,7 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
     devt_prep <- shiny::reactive({
       req(input$type != "case")
 
-      out <- triangle_data()$age_to_age_triangle %>%
+      out <- triangle_data()$age_to_age_triangle |>
         summaryrow::blank_row()
 
       out <- dplyr::bind_rows(

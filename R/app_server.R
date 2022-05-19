@@ -11,10 +11,10 @@ app_server <- function(input, output, session) {
 
   shiny::observeEvent(input$maturity_month, {
 
-    years <- loss_data_all %>%
-      dplyr::filter(lubridate::month(.data$eval_date) == input$maturity_month) %>%
-      dplyr::pull(.data$eval_date) %>%
-      lubridate::year() %>%
+    years <- loss_data_all |>
+      dplyr::filter(lubridate::month(.data$eval_date) == input$maturity_month) |>
+      dplyr::pull(.data$eval_date) |>
+      lubridate::year() |>
       unique()
 
     hold <- paste0(years, "-", input$maturity_month, "-20")
@@ -47,7 +47,7 @@ app_server <- function(input, output, session) {
 
     # browser()
 
-    loss_data_all %>%
+    loss_data_all |>
       dplyr::filter(lubridate::month(.data$eval_date) == input$maturity_month, .data$eval_date <= selected_eval())
   })
 
