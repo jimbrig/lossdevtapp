@@ -12,15 +12,30 @@ coverage](https://codecov.io/gh/jimbrig/lossdevtapp/branch/main/graph/badge.svg)
 [![R-CMD-check](https://github.com/jimbrig/lossdevtapp/workflows/R-CMD-check/badge.svg)](https://github.com/jimbrig/lossdevtapp/actions)
 <!-- badges: end -->
 
-The goal of lossdevtapp is to …
+The goal of lossdevtapp is to provide an intuitive actuarial application for a typical Property Casualty loss development workflow.
+
+Check out the repo's [Changelog](CHANGELOG.md) for progression details on the development of the R package and its features over time.
 
 ## Installation
 
-You can install the development version of lossdevtapp like so:
+You can install the development version of `lossdevtapp` like so:
 
 ``` r
 pak::pak("jimbrig/lossdevtapp")
 ```
+
+or pull the [Docker Image](https://github.com/jimbrig/lossdevtapp/pkgs/container/lossdevtapp) hosted on GitHub Container Registry via:
+
+```bash
+# pull base image
+docker pull ghcr.io/jimbrig/lossdevtapp:latest
+
+# run container image locally
+docker run -d -it -p 8080:80 ghcr.io/jimbrig/lossdevtapp:latest
+```
+
+and view the corresponding [Dockerfile](Dockerfile) for reference on how the image was built.
+
 
 ## Code of Conduct
 
