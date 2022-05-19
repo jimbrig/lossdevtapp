@@ -1,3 +1,14 @@
+#' Triangles Module
+#'
+#' @description
+#' Shiny module containing `mod_triangles_ui` and `mod_triangles_server`, respectively.
+#'
+#' This module renders a user interface for displaying and analyzing actuarial
+#' loss data in the form of loss development triangles.
+#'
+#' @name triangles_module
+NULL
+
 #' triangles UI Function
 #'
 #' @description A shiny Module.
@@ -5,7 +16,9 @@
 #' @param id,input,output,session Internal parameters for {shiny}.
 #' @param loss_data non-reactive loss data.frame
 #'
-#' @noRd
+#' @rdname triangles_module
+#'
+#' @export
 #'
 #' @importFrom DT DTOutput
 #' @importFrom shiny NS tagList fluidRow column icon helpText htmlOutput
@@ -77,9 +90,17 @@ mod_triangles_ui <- function(id, loss_data = loss_data_all){
   )
 }
 
-#' triangles Server Functions
+
+#' triangles server function
 #'
-#' @noRd
+#' @rdname triangles_module
+#'
+#' @param id ID associated with UI counterpart
+#' @param loss_data loss data
+#' @param selected_eval selected evaluation date
+#'
+#' @export
+#'
 #' @importFrom dplyr rename filter mutate bind_rows
 #' @importFrom DT renderDT datatable JS formatCurrency
 #' @importFrom purrr map2_dfr
