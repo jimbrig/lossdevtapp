@@ -100,3 +100,5 @@ rstudioapi::navigateToFile("dev/03_deploy.R")
 
 library(templateeR)
 templateeR::use_gh_labels()
+templateeR::use_git_cliff()
+templateeR::use_git_cliff_action()
