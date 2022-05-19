@@ -28,7 +28,7 @@ The goal of lossdevtapp is to ...
 You can install the development version of lossdevtapp like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+pak::pak("jimbrig/lossdevtapp")
 ```
 
 ## Code of Conduct
