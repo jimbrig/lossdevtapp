@@ -31,6 +31,7 @@ All notable changes to this project will be documented in this file.
 - Add dataset documentation for issue #8
 - Render data docs man pages
 - Sync NEWS.md with changelog
+- Enhance README with docker instructions and project details
 
 ### Features
 
