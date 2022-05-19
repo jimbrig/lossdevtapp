@@ -6,7 +6,7 @@
 #' @noRd
 app_ui <- function(request) {
 
-  maturity_choices <- c(1:12) %>% set_names(month.name)
+  maturity_choices <- c(1:12) |> set_names(month.name)
 
   header <- shinydashboard::dashboardHeader(
     title = "Loss Development"
