@@ -7,6 +7,9 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Codecov test
+coverage](https://codecov.io/gh/jimbrig/lossdevtapp/branch/main/graph/badge.svg)](https://app.codecov.io/gh/jimbrig/lossdevtapp?branch=main)
+[![R-CMD-check](https://github.com/jimbrig/lossdevtapp/workflows/R-CMD-check/badge.svg)](https://github.com/jimbrig/lossdevtapp/actions)
 <!-- badges: end -->
 
 The goal of lossdevtapp is to …
@@ -16,7 +19,7 @@ The goal of lossdevtapp is to …
 You can install the development version of lossdevtapp like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+pak::pak("jimbrig/lossdevtapp")
 ```
 
 ## Code of Conduct

@@ -54,6 +54,7 @@ devtools::build_vignettes()
 ## Code Coverage----
 ## Set the code coverage service ("codecov" or "coveralls")
 usethis::use_coverage()
+usethis::use_github_action("test-coverage")
 
 # Create a summary readme for the testthat subdirectory
 covrpage::covrpage()
@@ -99,3 +100,5 @@ rstudioapi::navigateToFile("dev/03_deploy.R")
 
 library(templateeR)
 templateeR::use_gh_labels()
+templateeR::use_git_cliff()
+templateeR::use_git_cliff_action()

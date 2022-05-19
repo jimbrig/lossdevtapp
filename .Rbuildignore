@@ -8,3 +8,7 @@ $run_dev.*
 ^README\.Rmd$
 ^CODE_OF_CONDUCT\.md$
 ^examples$
+^codecov\.yml$
+^\.github$
+^cliff\.toml$
+^CHANGELOG\.md$
