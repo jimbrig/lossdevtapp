@@ -22,7 +22,6 @@ Imports:
     shinydashboard,
     shinyjs,
     shinyWidgets,
-    summaryrow,
     tibble,
     tidyr
 Suggests: 

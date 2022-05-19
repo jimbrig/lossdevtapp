@@ -86,7 +86,7 @@ mod_triangles_ui <- function(id, loss_data = loss_data_all){
 #' @importFrom rlang set_names
 #' @importFrom shiny moduleServer observeEvent renderUI reactive
 #' @importFrom shinyjs show hide
-#' @importFrom summaryrow blank_row
+#' @importFrom tibble add_row
 #' @importFrom tidyr pivot_wider
 mod_triangles_server <- function(id, loss_data, selected_eval){
   shiny::moduleServer( id, function(input, output, session){
@@ -240,7 +240,7 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
       req(input$type != "case")
 
       out <- triangle_data()$age_to_age_triangle |>
-        summaryrow::blank_row()
+        tibble::add_row()
 
       out <- dplyr::bind_rows(
         out,
