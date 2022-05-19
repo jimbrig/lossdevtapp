@@ -26,6 +26,7 @@ golem::add_module(name = "name_of_module2", with_test = TRUE) # Name of the modu
 ## Creates fct_* and utils_*
 golem::add_fct("aggregate_loss_data", with_test = TRUE)
 golem::add_fct("derive_triangles", with_test = TRUE)
+golem::add_fct("create_triangle_bundle", with_test = TRUE)
 golem::add_utils("triangles", with_test = TRUE)
 golem::add_utils("dates")
 
@@ -95,3 +96,6 @@ usethis::use_gitlab_ci()
 # You're now set! ----
 # go to dev/03_deploy.R
 rstudioapi::navigateToFile("dev/03_deploy.R")
+
+library(templateeR)
+templateeR::use_gh_labels()
