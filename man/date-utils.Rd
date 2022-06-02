@@ -2,22 +2,15 @@
 % Please edit documentation in R/utils_dates.R
 \name{beg_of_month}
 \alias{beg_of_month}
+\alias{start_of_month}
 \title{Beginning of Month}
 \usage{
 beg_of_month(date)
-}
-\arguments{
-\item{date}{character or date representation of a date.}
-}
-\value{
-date
+
+start_of_month(date)
 }
 \description{
 Beginning of Month
-}
-\examples{
-# character input
-beg_of_month("2020-08-13")
-# date input
-beg_of_month(as.Date("2020-08-13"))
+
+Start of Month
 }
