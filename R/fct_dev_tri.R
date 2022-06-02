@@ -35,11 +35,3 @@ print.dev_tri <- function(x, ...) {
   msg_done("Loss Development Triangle: ")
   out
 }
-
-#' @export
-#' @importFrom tibble view
-view.dev_tri <- function(x) {
-  tibble::view(spread_tri(x))
-  invisible(x)
-}
-
