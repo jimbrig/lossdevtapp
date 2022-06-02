@@ -28,12 +28,13 @@
 #'
 #' @return The return value, if any, from executing the function.
 #'
-#' @importFrom dplyr mutate arrange bind_rows group_by ungroup filter left_join select
+#' @importFrom checkmate assert check_integer check_date check_choice check_list
+#' @importFrom dplyr mutate arrange bind_rows group_by ungroup filter left_join select desc
 #' @importFrom lubridate days
 #' @importFrom randomNames randomNames
 #' @importFrom stats rlnorm rnbinom rbinom runif rnorm
 #' @importFrom tibble tibble
-#' @importFrom rlang .data .env
+#' @importFrom rlang .env .data
 simulate_claims <- function(n_claims = 1000,
                             start_date = "2015-01-01",
                             end_date = Sys.Date(),
