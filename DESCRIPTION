@@ -10,24 +10,39 @@ BugReports: https://github.com/jimbrig/lossdevtapp/issues
 Depends: 
     R (>= 2.10)
 Imports: 
+    checkmate,
+    cli,
     config (>= 0.3.1),
+    crayon,
     dplyr,
     DT,
+    fs,
+    glue,
     golem (>= 0.3.2),
+    here,
     lubridate,
     purrr,
+    randomNames,
     rlang,
     shiny (>= 1.7.1),
     shinycssloaders,
     shinydashboard,
     shinyjs,
     shinyWidgets,
+    stats,
     tibble,
-    tidyr
+    tidyr,
+    usethis,
+    utils
 Suggests: 
+    actuar,
+    devtools,
+    fplot,
+    kableExtra,
     knitr,
     rmarkdown,
     spelling,
+    summarytools,
     testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr
