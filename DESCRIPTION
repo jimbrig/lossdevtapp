@@ -22,15 +22,18 @@ Imports:
     here,
     lubridate,
     purrr,
+    randomNames,
     rlang,
     shiny (>= 1.7.1),
     shinycssloaders,
     shinydashboard,
     shinyjs,
     shinyWidgets,
+    stats,
     tibble,
     tidyr,
-    usethis
+    usethis,
+    utils
 Suggests: 
     actuar,
     devtools,
