@@ -1,6 +1,6 @@
 Package: lossdevtapp
 Title: Actuarial Loss Development
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person("Jimmy", "Briggs", , "jimmy.briggs@jimbrig.com", role = c("cre", "aut"))
 Description: Actuarial Loss Development.
