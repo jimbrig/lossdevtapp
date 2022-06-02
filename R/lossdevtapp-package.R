@@ -5,8 +5,13 @@
 ## usethis namespace: end
 NULL
 
+#' @import utils
+#' @importfrom magrittr %>%
+NULL
+
 utils::globalVariables(
   c(
+    ".",
     "AYE",
     "age",
     "cdfs",
