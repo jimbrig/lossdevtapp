@@ -6,7 +6,6 @@
 NULL
 
 #' @import utils
-#' @importFrom magrittr %>%
 NULL
 
 utils::globalVariables(
