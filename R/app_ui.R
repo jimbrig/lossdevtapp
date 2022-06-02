@@ -37,7 +37,7 @@ app_ui <- function(request) {
       shinydashboard::menuItem(
         text = " Triangles",
         tabName = "triangles",
-        icon = shiny::icon("arrow-down-wade-short")
+        icon = shiny::icon("exclamation-triangle")
       ),
       shinydashboard::menuItem(
         text = " AvE",
