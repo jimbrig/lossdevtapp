@@ -5,8 +5,6 @@
 #'
 #' @name date_utils
 #'
-#' @param date Character string or Date representing the date to manipulate.
-#'
 #' @return Returns the Start or End Date as a Date.
 #'
 #' @importFrom lubridate is.Date ceiling_date floor_date
@@ -15,6 +13,8 @@
 NULL
 
 #' End of Month
+#'
+#' @param date Character string or Date representing the date to manipulate.
 #'
 #' @export
 #' @rdname date_utils
@@ -26,8 +26,11 @@ end_of_month <- function(date) {
 
 #' Beginning of Month
 #'
+#' @param date Character string or Date representing the date to manipulate.
+#'
 #' @export
-#' @rdname date-utils
+#'
+#' @rdname date_utils
 beg_of_month <- function(date) {
   if (is.character(date)) date <- as.Date(date)
   stopifnot(lubridate::is.Date(date))
@@ -35,9 +38,11 @@ beg_of_month <- function(date) {
 }
 
 #' Start of Month
+#' @param date Character string or Date representing the date to manipulate.
 #'
 #' @export
-#' @rdname date-utils
+#'
+#' @rdname date_utils
 start_of_month <- function(date) {
   beg_of_month(date)
 }
