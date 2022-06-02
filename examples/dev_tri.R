@@ -11,5 +11,3 @@ my_triangle <- dev_tri(
 class(my_triangle)
 str(my_triangle)
 print(my_triangle)
-view.dev_tri(my_triangle)
-
