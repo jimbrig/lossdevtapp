@@ -3,9 +3,15 @@
 \name{date_utils}
 \alias{date_utils}
 \alias{end_of_month}
+\alias{beg_of_month}
+\alias{start_of_month}
 \title{Date Utility Functions}
 \usage{
 end_of_month(date)
+
+beg_of_month(date)
+
+start_of_month(date)
 }
 \arguments{
 \item{date}{Character string or Date representing the date to manipulate.}
