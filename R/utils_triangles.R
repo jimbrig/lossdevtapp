@@ -31,14 +31,16 @@ ata_tri <- function(tri, ...) {
 
 }
 
-#' @importFrom tibble tibble
-dev_tri <- function(origin, age, value) {
-  tib <- tibble::tibble(origin = origin, age = age, value = value)
-  structure(tib, class = c("dev_tri", class(tib)))
-}
+
 
 #' @importFrom tidyr pivot_wider
 spread_tri <- function(tri) {
+
+  checkmate::assert(
+    checkmate::check_class(tri, "dev_tri"),
+    checkmate::check_class(tri, "ata")
+  )
+
   tri |>
     tidyr::pivot_wider(names_from = age, values_from = value)
 }
