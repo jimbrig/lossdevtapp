@@ -7,6 +7,10 @@ All notable changes to this project will be documented in this file.
 
 - Fixes for CMD CHECK
 
+### Features
+
+- Bump package version
+
 ## [0.1.0] - 2022-06-02
 
 ### Bug Fixes
