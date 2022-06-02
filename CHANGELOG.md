@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
+- Fixes for CMD CHECK
+
+## [0.1.0] - 2022-06-02
+
+### Bug Fixes
+
 - Fix globals with rlang
 - Buildignore .dockerignore for R CMD CHECK
 - Remove `View` calls from examples
