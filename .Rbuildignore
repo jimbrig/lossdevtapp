@@ -16,3 +16,6 @@ $run_dev.*
 ^rsconnect$
 ^Dockerfile$
 ^.dockerignore$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

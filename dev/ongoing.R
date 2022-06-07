@@ -6,3 +6,5 @@ usethis::use_r("dev-doc_data")
 
 usethis::use_test("simulate_claims")
 usethis::use_r("tri_tibble")
+
+usethis::use_pkgdown_github_pages()

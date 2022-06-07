@@ -12,6 +12,7 @@ Actuarial Loss Development.
 Useful links:
 \itemize{
   \item \url{https://github.com/jimbrig/lossdevtapp}
+  \item \url{https://jimbrig.github.io/lossdevtapp/}
   \item Report bugs at \url{https://github.com/jimbrig/lossdevtapp/issues}
 }
 
