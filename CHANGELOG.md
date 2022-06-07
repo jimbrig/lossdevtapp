@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 ### Features
 
 - Bump package version
+- Add pkgdown site per #14
 
 ## [0.1.0] - 2022-06-02
 
