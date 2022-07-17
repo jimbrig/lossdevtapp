@@ -60,34 +60,39 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dev_tri</span><span class="op">(</span><span class="va">origin</span>, <span class="va">age</span>, <span class="va">value</span>, value_label <span class="op">=</span> <span class="cn">NULL</span>, latest_eval_date <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dev_tri</span><span class="op">(</span><span class="va">origin</span>, <span class="va">age</span>, <span class="va">value</span>, value_label <span class="op">=</span> <span class="cn">NULL</span>, latest_eval_date <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>origin, age, value</dt>
 <dd><p>columns necessary to generate a `dev_tri`</p></dd>
+
+
 <dt>value_label</dt>
 <dd><p>optional label for the values (i.e. paid, incurred)</p></dd>
+
+
 <dt>latest_eval_date</dt>
 <dd><p>optional - specify latest val date</p></dd>
+
 </dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jimbrig/lossdevtapp" class="external-link">lossdevtapp</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">my_triangle</span> <span class="op">&lt;-</span> <span class="fu">dev_tri</span><span class="op">(</span></span>
-<span class="r-in">  origin <span class="op">=</span> <span class="va">loss_data</span><span class="op">$</span><span class="va">accident_year</span>,</span>
-<span class="r-in">  age <span class="op">=</span> <span class="va">loss_data</span><span class="op">$</span><span class="va">devt</span>,</span>
-<span class="r-in">  value <span class="op">=</span> <span class="va">loss_data</span><span class="op">$</span><span class="va">payment</span>,</span>
-<span class="r-in">  value_label <span class="op">=</span> <span class="st">"paid"</span>,</span>
-<span class="r-in">  latest_eval_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">loss_data</span><span class="op">$</span><span class="va">eval_date</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">my_triangle</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jimbrig/lossdevtapp" class="external-link">lossdevtapp</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">my_triangle</span> <span class="op">&lt;-</span> <span class="fu">dev_tri</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  origin <span class="op">=</span> <span class="va">loss_data</span><span class="op">$</span><span class="va">accident_year</span>,</span></span>
+<span class="r-in"><span>  age <span class="op">=</span> <span class="va">loss_data</span><span class="op">$</span><span class="va">devt</span>,</span></span>
+<span class="r-in"><span>  value <span class="op">=</span> <span class="va">loss_data</span><span class="op">$</span><span class="va">payment</span>,</span></span>
+<span class="r-in"><span>  value_label <span class="op">=</span> <span class="st">"paid"</span>,</span></span>
+<span class="r-in"><span>  latest_eval_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">loss_data</span><span class="op">$</span><span class="va">eval_date</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">my_triangle</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dev_tri"    "tbl_df"     "tbl"        "data.frame"</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">my_triangle</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">my_triangle</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dev_tri [105 × 3] (S3: dev_tri/tbl_df/tbl/data.frame)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ origin: num [1:105] 2006 2006 2006 2006 2006 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ age   : num [1:105] 12 24 36 48 60 72 84 96 108 120 ...</span>
@@ -98,7 +103,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ value_col : chr "value"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "value_label")= chr "paid"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "latest_eval_date")= Date[1:1], format: "2019-12-31"</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">my_triangle</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">my_triangle</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Loss Development Triangle: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 14 × 15</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    origin   `12`    `24`    `36`    `48`    `60`    `72`    `84`    `96`   `108`</span>
@@ -130,7 +135,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

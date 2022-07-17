@@ -63,44 +63,61 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">simulate_claims</span><span class="op">(</span>
-  n_claims <span class="op">=</span> <span class="fl">1000</span>,
-  start_date <span class="op">=</span> <span class="st">"2015-01-01"</span>,
-  end_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,
-  seed <span class="op">=</span> <span class="fl">12345</span>,
-  loss_distribution <span class="op">=</span> <span class="st">"lnorm"</span>,
-  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean_log <span class="op">=</span> <span class="fl">7.5</span>, sd_log <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span>,
-  status_prob_open <span class="op">=</span> <span class="fl">0.96</span>,
-  cache <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">simulate_claims</span><span class="op">(</span></span>
+<span>  n_claims <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  start_date <span class="op">=</span> <span class="st">"2015-01-01"</span>,</span>
+<span>  end_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  seed <span class="op">=</span> <span class="fl">12345</span>,</span>
+<span>  loss_distribution <span class="op">=</span> <span class="st">"lnorm"</span>,</span>
+<span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean_log <span class="op">=</span> <span class="fl">7.5</span>, sd_log <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span>,</span>
+<span>  status_prob_open <span class="op">=</span> <span class="fl">0.96</span>,</span>
+<span>  cache <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>n_claims</dt>
 <dd><p>Numeric - Number of claims to be simulated.</p></dd>
+
+
 <dt>start_date, end_date</dt>
 <dd><p>Character/Date - Start and End dates for simulation to create claims within (experience_period).</p></dd>
+
+
 <dt>seed</dt>
 <dd><p>Numeric - the seed is used to isolate randomness during statistical simulations.</p></dd>
+
+
 <dt>loss_distribution</dt>
 <dd><p>Character - must be one of the distributions mentioned in the details below. Defaults to lognormal.</p></dd>
+
+
 <dt>params</dt>
 <dd><p>Parameters associated with the specified `loss_distribution`
 in a list (i.e. `list(mean_log = 7.5, sd_log = 1.5)` for lognormal distribution).</p></dd>
+
+
 <dt>status_prob_open</dt>
 <dd><p>Numeric - must be within `0 &lt; x &lt; 1` and represents
 probability a claim is open when running binomial simulations for claims'
 status.</p></dd>
+
+
 <dt>cache</dt>
 <dd><p>Boolean/Logical - enable caching?</p></dd>
+
+
 <dt>...</dt>
 <dd><p>If needed</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The return value, if any, from executing the function.</p>
+    
+
+<p>The return value, if any, from executing the function.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -123,7 +140,7 @@ status.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
