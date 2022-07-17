@@ -75,18 +75,13 @@ list_to_p <- function(list, class = NULL) {
 #' @importFrom shiny tags tagAppendAttributes tagList
 named_to_li <- function(list, class = NULL) {
   if (is.null(class)) {
-    res <- mapply(
-      function(x, y) {
-        tags$li(
+    res <- purrr::map2_chr(list, names(list), function(x, y) {
+      tags$li(
           HTML(
             sprintf("<b>%s:</b> %s", y, x)
           )
         )
-      },
-      list,
-      names(list),
-      SIMPLIFY = FALSE
-    )
+      })
     tagList(res)
   } else {
     res <- mapply(
