@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Bug Fixes
 
 - Fixes for CMD CHECK
+- Change mapply to purrr::map2_chr
 
 ### Features
 
