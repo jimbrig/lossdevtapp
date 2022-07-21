@@ -260,6 +260,8 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
     devt_prep <- shiny::reactive({
       shiny::req(input$type != "case")
 
+      # browser()
+
       out <- triangle_data()$age_to_age_triangle |>
         tibble::add_row()
 
@@ -268,9 +270,24 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
         triangle_data()$averages
       )
 
-      tail_df <- tibble::tibble(
-        "tail" = rep(NA, times = nrow(out))
+      max_age <- as.numeric(names(out)[ncol(out)]) + 12
+
+      age_to_age_names <- c(
+        "AYE",
+        paste0(
+          names(out)[-1],
+          "-",
+          c(names(out)[-c(1:2)], as.character(max_age))
+        )
       )
+
+      names(out) <- age_to_age_names
+
+      tail_col <- paste0(max_age, "-ULT")
+
+      tail_df <- tibble::tibble(
+        " " = rep(NA, times = nrow(out))
+      ) |> setNames(tail_col)
 
       cbind(
         out,
@@ -279,6 +296,60 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
 
     })
 
+    output$devt_factors <- DT::renderDT({
+
+      out <- devt_prep()
+
+      # browser()
+
+      n_row <- nrow(out)
+      col_width <- paste0(round(1/ncol(out),0) * 100, "%")
+
+      hold <- DT::datatable(
+        out,
+        rownames = FALSE,
+        caption = "Age-to-Age Development Factors",
+        colnames = c("Accident Year Ending", names(out)[-1]),
+        extensions = c("Buttons"),
+        selection = "none",
+        class = "display",
+        callback = DT::JS('return table'),
+        options = list(
+        dom = "Bt",
+        paging = FALSE,
+        scrollX = TRUE,
+        editable = list(
+          target = "row",
+          disable = list(
+            columns = c(1)
+          ),
+          numeric = c(2:ncol(out)),
+
+        ),
+        buttons = list(
+          list(
+            extend = "excel",
+            text = "Download",
+            title = "dev-triangle"
+          )
+        ),
+        ordering = FALSE,
+        pageLength = n_row,
+        columnDefs = list(
+          list(targets = "_all", className = "dt-center", width = col_width)
+        )
+      )
+    ) |>
+      DT::formatRound(
+        column = 2:length(out),
+        digits = 4
+        )
+    })
+
+  })
+
+  observeEvent(input$devt_factors_cell_edit, {
+    devt_factors <- editData(devt_factors(), input$devt_factors_call_edit, "devt_factors")
   })
 }
 
