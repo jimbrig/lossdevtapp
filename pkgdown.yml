@@ -1,10 +1,10 @@
 pandoc: 2.14.2
-pkgdown: 2.0.5
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   data: data.html
   lossdevtapp: lossdevtapp.html
-last_built: 2022-07-17T02:37Z
+last_built: 2022-07-21T19:03Z
 urls:
   reference: https://jimbrig.github.io/lossdevtapp/reference
   article: https://jimbrig.github.io/lossdevtapp/articles
