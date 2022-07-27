@@ -109,16 +109,9 @@ mod_triangles_ui <- function(id, loss_data = loss_data_all){
 #' @importFrom shinyjs show hide
 #' @importFrom tibble add_row tibble
 #' @importFrom tidyr pivot_wider
-#'
-#'
-mod_tri_server <- function(id){
-  moduleServer( id, function(input, output, session){
-    ns <- session$ns
-
-  })
-}
 mod_triangles_server <- function(id, loss_data, selected_eval){
-  shiny::moduleServer( id, function(input, output, session){
+  shiny::moduleServer(id, function(input, output, session){
+
     ns <- session$ns
 
     shiny::observeEvent(input$type, {
@@ -268,6 +261,8 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
     devt_prep <- shiny::reactive({
       shiny::req(input$type != "case")
 
+      # browser()
+
       out <- triangle_data()$age_to_age_triangle |>
         tibble::add_row()
 
@@ -302,61 +297,117 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
 
     })
 
-  })
+    #   output$devt_factors <- DT::renderDT({
+    #
+    #     out <- devt_prep()
+    #
+    #     # browser()
+    #
+    #     n_row <- nrow(out)
+    #     col_width <- paste0(round(1/ncol(out),0) * 100, "%")
+    #
+    #     hold <- DT::datatable(
+    #       out,
+    #       rownames = FALSE,
+    #       caption = "Age-to-Age Development Factors",
+    #       colnames = c("Accident Year Ending", names(out)[-1]),
+    #       extensions = c("Buttons"),
+    #       selection = "none",
+    #       class = "display",
+    #       callback = DT::JS('return table'),
+    #       options = list(
+    #       dom = "Bt",
+    #       paging = FALSE,
+    #       scrollX = TRUE,
+    #       editable = list(
+    #         target = "row",
+    #         disable = list(
+    #           columns = c(1)
+    #         ),
+    #         numeric = c(2:ncol(out)),
+    #
+    #       ),
+    #       buttons = list(
+    #         list(
+    #           extend = "excel",
+    #           text = "Download",
+    #           title = "dev-triangle"
+    #         )
+    #       ),
+    #       ordering = FALSE,
+    #       pageLength = n_row,
+    #       columnDefs = list(
+    #         list(targets = "_all", className = "dt-center", width = col_width)
+    #       )
+    #     )
+    #   ) |>
+    #     DT::formatRound(
+    #       column = 2:length(out),
+    #       digits = 4
+    #       )
+    #   })
+    #
+    # })
 
-  output$devt_factors <- DT::renderDT({
+    observeEvent(input$devt_factors_cell_edit, {
+      devt_factors <- editData(devt_factors(), input$devt_factors_call_edit, "devt_factors")
+    })
 
-    out <- devt_prep()
+    output$devt_factors <- DT::renderDT({
 
-    # browser()
+      out <- devt_prep()
 
-    n_row <- nrow(out)
-    col_width <- paste0(round(1/ncol(out),0) * 100, "%")
+      # browser()
 
-    hold <- DT::datatable(
-      out,
-      rownames = FALSE,
-      caption = "Age-to-Age Development Factors",
-      colnames = c("Accident Year Ending", names(out)[-1]),
-      extensions = c("Buttons"),
-      selection = "none",
-      class = "display",
-      callback = DT::JS('return table'),
-      options = list(
-        dom = "Bt",
-        paging = FALSE,
-        scrollX = TRUE,
-        editable = list(
-          target = "row",
-          disable = list(
-            columns = c(1)
+      n_row <- nrow(out)
+      col_width <- paste0(round(1/ncol(out),0) * 100, "%")
+
+      hold <- DT::datatable(
+        out,
+        rownames = FALSE,
+        caption = "Age-to-Age Development Factors",
+        colnames = c("Accident Year Ending", names(out)[-1]),
+        extensions = c("Buttons"),
+        selection = "none",
+        class = "display",
+        callback = DT::JS('return table'),
+        options = list(
+          dom = "Bt",
+          paging = FALSE,
+          scrollX = TRUE,
+          editable = list(
+            target = "cell"
           ),
-          numeric = c(2:ncol(out)),
-
-        ),
-        buttons = list(
-          list(
-            extend = "excel",
-            text = "Download",
-            title = "dev-triangle"
+          # editable = list(
+          #   target = "row",
+          #   disable = list(
+          #     columns = c(1)
+          #   ),
+          #   numeric = c(2:ncol(out)),
+          # ),
+          buttons = list(
+            list(
+              extend = "excel",
+              text = "Download",
+              title = "dev-triangle"
+            )
+          ),
+          ordering = FALSE,
+          pageLength = n_row,
+          columnDefs = list(
+            list(targets = "_all", className = "dt-center", width = col_width)
           )
-        ),
-        ordering = FALSE,
-        pageLength = n_row,
-        columnDefs = list(
-          list(targets = "_all", className = "dt-center", width = col_width)
         )
-      )
-    ) |>
-      DT::formatRound(
-        column = 2:length(out),
-        digits = 4
-      )
+      ) |>
+        DT::formatRound(
+          column = 2:length(out),
+          digits = 4
+        )
+    })
+
+
+
   })
-
-
-
-
 }
 
 ## To be copied in the UI
