@@ -1,16 +1,43 @@
-#' The application User-Interface
+#' Shiny User Interface Functions
+#'
+#' @name shiny-ui
+#'
+#' @description
+#' Functions that build the Shiny App's UI:
+#'
+#'   - `app_ui`: Main UI function
+#'
+#'   - `app_header`: wrapper around [shinydashboard::dashboardHeader()]
+#'
+#'   - `app_sidebar`: wrapper around [shinydashboard::dashboardSidebar()]
+#'
+#'   - `app_body`: wrapper around [shinydashboard::dashboardBody()]
+NULL
+
+#' The Shiny Application User-Interface - `app_ui()`
+#'
+#' @description
+#' Shiny App's User Interface Function.
+#'
+#' @rdname shiny-ui
 #'
 #' @param request Internal parameter for `{shiny}`.
-#'     DO NOT REMOVE.
-#' @import shiny
-#' @noRd
-app_ui <- function(request) {
+#' @param ... For potential future use.
+#'
+#' @importFrom shiny icon
+#' @importFrom shinydashboard dashboardHeader dashboardSidebar sidebarMenu
+#' @importFrom shinydashboard menuItem dashboardBody tabItems tabItem dashboardPage
+#' @importFrom shinyjs useShinyjs
+#' @importFrom shinyWidgets airYearpickerInput
+#'
+#' @return The user interface definition, without modifications or side effects.
+#'
+#' @seealso [shiny::shinyUI], [shinydashboard::dashboardPage()]
+app_ui <- function(request, ...) {
 
   maturity_choices <- c(1:12) |> set_names(month.name)
 
-  header <- shinydashboard::dashboardHeader(
-    title = "Loss Development"
-  )
+  header <- app_header()
 
   sidebar <- shinydashboard::dashboardSidebar(
     shinydashboard::sidebarMenu(
@@ -94,6 +121,31 @@ app_ui <- function(request) {
     # Your application UI logic
     ui
   )
+}
+
+#' App Header
+#'
+#' @description
+#' Shiny App Dashboard's Header Function
+#'
+#' @rdname shiny-ui
+#'
+#' @param title App title to be placed in the header, above the sidebar.
+#' @inheritDotParams shinydashboardPlus::dashboardHeader
+#'
+#' @return a [shinydashboard::dashboardHeader()]
+#'
+#' @export
+#'
+#' @importFrom shinydashboardPlus dashboardHeader
+app_header <- function(title = "Loss Development",
+                       ...) {
+
+  shinydashboardPlus::dashboardHeader(
+    title = title,
+    ...
+  )
+
 }
 
 #' Add external Resources to the Application
