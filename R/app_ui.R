@@ -37,19 +37,19 @@ app_ui <- function(request) {
       shinydashboard::menuItem(
         text = " Triangles",
         tabName = "triangles",
-        icon = shiny::icon("exclamation-triangle")
+        icon = shiny::icon("triangle-exclamation")
       ),
       shinydashboard::menuItem(
         text = " AvE",
         tabName = "ave",
-        icon = shiny::icon("balance-scale"),
+        icon = shiny::icon("scale-balanced"),
         badgeLabel = "Coming Soon!",
         badgeColor = "green"
       ),
       shinydashboard::menuItem(
         text = " Ultimate",
         tabName = "ult",
-        icon = shiny::icon("search-dollar"),
+        icon = shiny::icon("dollar-sign"),
         badgeLabel = "Coming Soon!",
         badgeColor = "green"
       )
