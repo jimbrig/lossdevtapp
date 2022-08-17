@@ -1,6 +1,3 @@
-library(lossdevtapp)
-library(dplyr)
-
 # create default paid triangle bundle
 tri_paid_bundle <- create_triangle_bundle(loss_data_all)
 
