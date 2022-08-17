@@ -25,7 +25,8 @@ NULL
 #' @param ... For potential future use.
 #'
 #' @importFrom shiny icon
-#' @importFrom shinydashboard dashboardHeader dashboardSidebar sidebarMenu
+#' @importFrom shinydashboardPlus dashboardHeader
+#' @importFrom shinydashboard dashboardSidebar sidebarMenu
 #' @importFrom shinydashboard menuItem dashboardBody tabItems tabItem dashboardPage
 #' @importFrom shinyjs useShinyjs
 #' @importFrom shinyWidgets airYearpickerInput
