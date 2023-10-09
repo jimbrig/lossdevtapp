@@ -79,11 +79,35 @@ mod_triangles_ui <- function(id, loss_data = loss_data_all){
       shiny::div(
         id = ns("devt"),
         shinydashboard::box(
-          title = "Age to Age Triangle",
-          collapsible = TRUE,
+          title = "Age to Age Development Factors",
           width = 12,
+          collapsible = TRUE,
           DT::DTOutput(ns("devt_factors")) |>
-            shinycssloaders::withSpinner() #image = 'images/pwc_spinner_01.gif')
+            shinycssloaders::withSpinner()
+        ),
+
+        shinydashboard::box(
+          title = "Averages",
+          width = 12,
+          collapsible = TRUE,
+          DT::DTOutput(ns("avgs")) |>
+            shinycssloaders::withSpinner()
+        ),
+
+        shinydashboard::box(
+          title = "Prior & Industry",
+          width = 12,
+          collapsible = TRUE,
+          DT::DTOutput(ns("prior_and_industry")) |>
+            shinycssloaders::withSpinner()
+        ),
+
+        shinydashboard::box(
+          title = "Selections",
+          width = 12,
+          collapsible = TRUE,
+          DT::DTOutput(ns("selections")) |>
+            shinycssloaders::withSpinner()
         )
       )
     )
@@ -150,7 +174,7 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
 
       # browser()
 
-      lmt <- if (is.na(input$lmt)) NA else input$lmt * 1000
+      lmt <- if (is.na(input$lmt)) NA_real_ else input$lmt * 1000
       type <- input$type
 
       agg_dat <- loss_data() |>
@@ -185,21 +209,20 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
         dplyr::rename(AYE = origin) |>
         dplyr::mutate(AYE = as.character(AYE))
 
-      # ata_tri <- triangle_data[[input$type]]$age_to_age_triangle |>
-      #   mutate(AYE = as.character(AYE))
-
       ldf_avg <- idf(ldf_avg(tri_dat)$idfs)
 
       ldf_avg_wtd <- idf(ldf_avg_wtd(tri_dat)$idfs)
+
+      prior <- ldf_avg_wtd
+
+      industry <- ldf_avg_wtd
 
       sel <- ldf_avg_wtd
 
       cdf <- idf2cdf(sel)
 
       params <- list("Straight Average:" = ldf_avg,
-                     "Weighted Average:" = ldf_avg_wtd,
-                     "Selected:" = sel,
-                     "CDF:" = cdf)
+                     "Weighted Average:" = ldf_avg_wtd)
 
       hold <- purrr::map2_dfr(params, names(params), function(dat, type_ ) {
         dat |>
@@ -208,13 +231,40 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
           dplyr::mutate(AYE = type_)
       })
 
+      params <- list(
+        "Industry:" = industry,
+        "Prior Selected:" = prior
+      )
+
+      industry_prior_hold <- purrr::map2_dfr(
+        params, names(params), function(dat, type_) {
+          dat |>
+            tidyr::pivot_wider(names_from = age, values_from = names(dat)[2]) |>
+            rlang::set_names(names(ata_tri)) |>
+            dplyr::mutate(AYE = type_)
+        }
+      )
+
+      selected <- sel |>
+        tidyr::pivot_wider(names_from = age, values_from = idfs) |>
+        rlang::set_names(names(ata_tri)) |>
+        dplyr::mutate(AYE = "Selected Factors:")
+
+      cdfs <- cdf |>
+        tidyr::pivot_wider(names_from = age, values_from = cdfs) |>
+        rlang::set_names(names(ata_tri)) |>
+        dplyr::mutate(AYE = "Cumulative Factors:")
+
       list(
         "aggregate_data" = agg_dat,
         "triangle_data" = tri_dat,
         "triangle" = tri,
         "age_to_age_data" = ata_dat,
         "age_to_age_triangle" = ata_tri,
-        "averages" = hold
+        "averages" = hold,
+        "industry_priors" = industry_prior_hold,
+        "selected" = selected,
+        "cdfs" = cdfs
       )
     })
 
@@ -261,15 +311,8 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
     devt_prep <- shiny::reactive({
       shiny::req(input$type != "case")
 
-      # browser()
-
       out <- triangle_data()$age_to_age_triangle |>
         tibble::add_row()
-
-      out <- dplyr::bind_rows(
-        out,
-        triangle_data()$averages
-      )
 
       max_age <- as.numeric(names(out)[ncol(out)]) + 12
 
@@ -294,7 +337,6 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
         out,
         tail_df
       )
-
     })
 
     #   output$devt_factors <- DT::renderDT({
@@ -403,6 +445,137 @@ mod_triangles_server <- function(id, loss_data, selected_eval){
           column = 2:length(out),
           digits = 4
         )
+    })
+
+    output$avgs <- DT::renderDT({
+
+      out <- triangle_data()$averages
+
+      n_row <- nrow(out)
+      col_width <- paste0(round(1/ncol(out),0) * 100, "%")
+
+      hold <- DT::datatable(
+        out,
+        rownames = FALSE,
+        caption = "Averages",
+        colnames = c("Accident Year Ending", names(out)[-1]),
+        extensions = c("Buttons"),
+        selection = "none",
+        class = "display",
+        callback = DT::JS('return table'),
+        options = list(
+          dom = "Bt",
+          paging = FALSE,
+          scrollX = TRUE,
+          editable = list(
+            target = "cell"
+          ),
+          buttons = list(
+            list(
+              extend = "excel",
+              text = "Download",
+              title = "industry-and-priors-ldfs"
+            )
+          ),
+          ordering = FALSE,
+          pageLength = n_row,
+          columnDefs = list(
+            list(targets = "_all", className = "dt-center", width = col_width)
+          )
+        )
+      ) |>
+        DT::formatRound(
+          column = 2:length(out),
+          digits = 4
+        )
+
+    })
+
+    output$prior_and_industry <- DT::renderDT({
+
+      out <- triangle_data()$industry_priors
+      n_row <- nrow(out)
+      col_width <- paste0(round(1/ncol(out),0) * 100, "%")
+
+      hold <- DT::datatable(
+        out,
+        rownames = FALSE,
+        caption = "Industry and Prior Selected LDFs",
+        colnames = c("Accident Year Ending", names(out)[-1]),
+        extensions = c("Buttons"),
+        selection = "none",
+        class = "display",
+        callback = DT::JS('return table'),
+        options = list(
+          dom = "Bt",
+          paging = FALSE,
+          scrollX = TRUE,
+          editable = list(
+            target = "cell"
+          ),
+          buttons = list(
+            list(
+              extend = "excel",
+              text = "Download",
+              title = "industry-and-priors-ldfs"
+            )
+          ),
+          ordering = FALSE,
+          pageLength = n_row,
+          columnDefs = list(
+            list(targets = "_all", className = "dt-center", width = col_width)
+          )
+        )
+      ) |>
+        DT::formatRound(
+          column = 2:length(out),
+          digits = 4
+        )
+
+    })
+
+    output$selections <- DT::renderDT({
+
+      out <- triangle_data()$selected |> dplyr::bind_rows(triangle_data()$cdfs)
+
+      n_row <- nrow(out)
+      col_width <- paste0(round(1/ncol(out),0) * 100, "%")
+
+      hold <- DT::datatable(
+        out,
+        rownames = FALSE,
+        caption = "Industry and Prior Selected LDFs",
+        colnames = c("Accident Year Ending", names(out)[-1]),
+        extensions = c("Buttons"),
+        selection = "none",
+        class = "display",
+        callback = DT::JS('return table'),
+        options = list(
+          dom = "Bt",
+          paging = FALSE,
+          scrollX = TRUE,
+          editable = list(
+            target = "cell"
+          ),
+          buttons = list(
+            list(
+              extend = "excel",
+              text = "Download",
+              title = "selected-ldfs-cdfs"
+            )
+          ),
+          ordering = FALSE,
+          pageLength = n_row,
+          columnDefs = list(
+            list(targets = "_all", className = "dt-center", width = col_width)
+          )
+        )
+      ) |>
+        DT::formatRound(
+          column = 2:length(out),
+          digits = 4
+        )
+
     })
 
 
