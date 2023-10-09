@@ -36,7 +36,8 @@ Imports:
     tibble,
     tidyr,
     usethis,
-    utils
+    utils,
+    waiter
 Suggests: 
     actuar,
     devtools,

@@ -24,96 +24,33 @@ NULL
 #' @param request Internal parameter for `{shiny}`.
 #' @param ... For potential future use.
 #'
-#' @importFrom shiny icon
-#' @importFrom shinydashboardPlus dashboardHeader
-#' @importFrom shinydashboard dashboardSidebar sidebarMenu
-#' @importFrom shinydashboard menuItem dashboardBody tabItems tabItem dashboardPage
-#' @importFrom shinyjs useShinyjs
-#' @importFrom shinyWidgets airYearpickerInput
-#'
 #' @return The user interface definition, without modifications or side effects.
 #'
 #' @seealso [shiny::shinyUI], [shinydashboard::dashboardPage()]
+#'
+#' @importFrom shinydashboardPlus dashboardPage
+#' @importFrom waiter spin_1
 app_ui <- function(request, ...) {
 
-  maturity_choices <- c(1:12) |> set_names(month.name)
-
   header <- app_header()
+  sidebar <- app_sidebar()
+  body <- app_body()
+  control_bar <- app_control_bar()
+  footer <- NULL
 
-  sidebar <- shinydashboard::dashboardSidebar(
-    shinydashboard::sidebarMenu(
-      id = "menu",
-      selectInput(
-        "maturity_month",
-        "Select Month of Maturity",
-        choices = maturity_choices,
-        selected = 12,
-        selectize = FALSE,
-        multiple = FALSE
-      ),
-      shinyWidgets::airYearpickerInput(
-        "valuation_year",
-        "Select Latest Evaluation Year:",
-        minDate = min(loss_data_all$eval_date),
-        maxDate = max(loss_data_all$eval_date),
-        value = "2019-12-31",
-        autoClose = TRUE,
-        # update_on = "close",
-        addon = "none",
-        width = "100%"
-      ),
-      shinydashboard::menuItem(
-        text = " Triangles",
-        tabName = "triangles",
-        icon = shiny::icon("triangle-exclamation")
-      ),
-      shinydashboard::menuItem(
-        text = " AvE",
-        tabName = "ave",
-        icon = shiny::icon("scale-balanced"),
-        badgeLabel = "Coming Soon!",
-        badgeColor = "green"
-      ),
-      shinydashboard::menuItem(
-        text = " Ultimate",
-        tabName = "ult",
-        icon = shiny::icon("dollar-sign"),
-        badgeLabel = "Coming Soon!",
-        badgeColor = "green"
-      )
-    )
-  )
-
-  body <- shinydashboard::dashboardBody(
-    tags$head(
-      tags$link(
-        rel = "shortcut icon",
-        type = "image/png",
-        href = "images/pwc-logo.png"
-      ),
-      tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")
-    ),
-    shinyjs::useShinyjs(),
-    shinydashboard::tabItems(
-      shinydashboard::tabItem(
-        tabName = "triangles",
-        mod_triangles_ui("triangles_1", loss_data = loss_data_all)
-      ),
-      shinydashboard::tabItem(
-        tabName = "ave"#,
-        # ave_module_ui("ave")
-      ),
-      shinydashboard::tabItem(
-        tabName = "ult"#,
-        # ult_module_ui("ave")
-      )
-    )
-  )
-
-  ui <- shinydashboard::dashboardPage(
-    header, sidebar, body,
+  ui <- shinydashboardPlus::dashboardPage(
+    header = header,
+    sidebar = sidebar,
+    body = body,
+    controlbar = control_bar,
+    footer = footer,
     title = "Loss Development",
-    skin = "black"
+    skin = "black",
+    # freshTheme = ,
+    preloader = list(html = waiter::spin_1(), color = "#333e48"),
+    # md = ,
+    # options = ,
+    scrollToTop = TRUE
   )
 
   tagList(
@@ -124,30 +61,7 @@ app_ui <- function(request, ...) {
   )
 }
 
-#' App Header
-#'
-#' @description
-#' Shiny App Dashboard's Header Function
-#'
-#' @rdname shiny-ui
-#'
-#' @param title App title to be placed in the header, above the sidebar.
-#' @inheritDotParams shinydashboardPlus::dashboardHeader
-#'
-#' @return a [shinydashboard::dashboardHeader()]
-#'
-#' @export
-#'
-#' @importFrom shinydashboardPlus dashboardHeader
-app_header <- function(title = "Loss Development",
-                       ...) {
 
-  shinydashboardPlus::dashboardHeader(
-    title = title,
-    ...
-  )
-
-}
 
 #' Add external Resources to the Application
 #'
@@ -157,6 +71,8 @@ app_header <- function(title = "Loss Development",
 #' @import shiny
 #' @importFrom golem add_resource_path activate_js favicon bundle_resources
 #' @noRd
+#' @importFrom shinyjs useShinyjs
+#' @importFrom shinyWidgets useShinydashboardPlus
 golem_add_external_resources <- function() {
   add_resource_path(
     "www",
@@ -165,10 +81,13 @@ golem_add_external_resources <- function() {
 
   tags$head(
     favicon(),
+    # tags$link(rel = "stylesheet", type = "text/css", href = "styles.css"),
     bundle_resources(
       path = app_sys("app/www"),
       app_title = "lossdevtapp"
-    )
+    ),
+    shinyjs::useShinyjs(),
+    shinyWidgets::useShinydashboardPlus()#,
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert()
   )
