@@ -37,6 +37,9 @@
     <loc>https://jimbrig.github.io/lossdevtapp/reference/aggregate_loss_data.html</loc>
   </url>
   <url>
+    <loc>https://jimbrig.github.io/lossdevtapp/reference/app_sys.html</loc>
+  </url>
+  <url>
     <loc>https://jimbrig.github.io/lossdevtapp/reference/create_triangle_bundle.html</loc>
   </url>
   <url>
@@ -77,6 +80,9 @@
   </url>
   <url>
     <loc>https://jimbrig.github.io/lossdevtapp/reference/run_app.html</loc>
+  </url>
+  <url>
+    <loc>https://jimbrig.github.io/lossdevtapp/reference/shiny-ui.html</loc>
   </url>
   <url>
     <loc>https://jimbrig.github.io/lossdevtapp/reference/simulate_claims.html</loc>

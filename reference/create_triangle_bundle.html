@@ -123,45 +123,98 @@ bundle describes (i.e. paid, reported, counts, etc.).</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jimbrig/lossdevtapp" class="external-link">lossdevtapp</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘dplyr’</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:stats’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     filter, lag</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     intersect, setdiff, setequal, union</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># create default paid triangle bundle</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># create default paid triangle bundle</span></span></span>
 <span class="r-in"><span><span class="va">tri_paid_bundle</span> <span class="op">&lt;-</span> <span class="fu">create_triangle_bundle</span><span class="op">(</span><span class="va">loss_data_all</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in dplyr::mutate(dplyr::group_by(tri, .data$origin), value_lead = dplyr::lead(.data$value,     by = .data$age), value = value_lead/value):</span> <span style="color: #00BBBB;">ℹ</span> In argument: `value_lead = dplyr::lead(.data$value, by = .data$age)`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In group 1: `origin = 2006`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `dplyr::lead()`:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> `...` must be empty.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> Problematic argument:</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> by = age</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># check out the structure</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">tri_paid_bundle</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'tri_paid_bundle' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> List of 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ aggregate_data     : tibble [105 × 6] (S3: tbl_df/tbl/data.frame)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ accident_year: num [1:105] 2006 2006 2006 2006 2006 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ devt         : num [1:105] 12 24 36 48 60 72 84 96 108 120 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ paid         : num [1:105] 11146371 25763467 33902428 36367500 37392655 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ reported     : num [1:105] 24684326 34467713 36588672 37393391 37666758 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ n_claims     : int [1:105] 653 678 678 678 678 678 678 678 678 678 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ case         : num [1:105] 13537955 8704246 2686244 1025891 274103 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ triangle_data      : dev_tri [105 × 3] (S3: dev_tri/tbl_df/tbl/data.frame)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ origin: num [1:105] 2006 2006 2006 2006 2006 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ age   : num [1:105] 12 24 36 48 60 72 84 96 108 120 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ value : num [1:105] 11146371 25763467 33902428 36367500 37392655 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "col_specs")=List of 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ origin_col: chr "origin"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ age_col   : chr "age"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ value_col : chr "value"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ triangle           : tibble [14 × 15] (S3: tbl_df/tbl/data.frame)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ origin: num [1:14] 2006 2007 2008 2009 2010 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 12    : num [1:14] 11146371 10545721 11597931 11122196 10868557 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 24    : num [1:14] 25763467 23976020 27109408 24587682 24884104 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 36    : num [1:14] 33902428 32018479 33165918 29929075 32053872 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 48    : num [1:14] 36367500 35519541 35203610 31459144 35636080 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 60    : num [1:14] 37392655 36110056 35922598 32470316 36173041 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 72    : num [1:14] 37788200 36371766 35998095 33556727 36410318 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 84    : num [1:14] 37811665 36434500 36039411 33647464 36517661 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 96    : num [1:14] 37811665 36455980 36039411 33656817 36517661 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 108   : num [1:14] 37811665 36455980 36039411 33664112 36517661 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 120   : num [1:14] 37811665 36455980 36039411 33664112 36517661 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 132   : num [1:14] 37811665 36455980 36039411 33664112 NA ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 144   : num [1:14] 37811665 36455980 36039411 NA NA ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 156   : num [1:14] 37811665 36455980 NA NA NA ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 168   : num [1:14] 37811665 NA NA NA NA ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ age_to_age_data    : ata [91 × 3] (S3: ata/tbl_df/tbl/data.frame)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ origin: num [1:91] 2006 2006 2006 2006 2006 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ age   : num [1:91] 12 24 36 48 60 72 84 96 108 120 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ value : num [1:91] 2.31 1.32 1.07 1.03 1.01 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ age_to_age_triangle: tibble [13 × 14] (S3: tbl_df/tbl/data.frame)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ origin: num [1:13] 2006 2007 2008 2009 2010 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 12    : num [1:13] 2.31 2.27 2.34 2.21 2.29 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 24    : num [1:13] 1.32 1.34 1.22 1.22 1.29 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 36    : num [1:13] 1.07 1.11 1.06 1.05 1.11 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 48    : num [1:13] 1.03 1.02 1.02 1.03 1.02 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 60    : num [1:13] 1.01 1.01 1 1.03 1.01 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 72    : num [1:13] 1 1 1 1 1 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 84    : num [1:13] 1 1 1 1 1 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 96    : num [1:13] 1 1 1 1 1 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 108   : num [1:13] 1 1 1 1 1 NA NA NA NA NA ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 120   : num [1:13] 1 1 1 1 NA NA NA NA NA NA ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 132   : num [1:13] 1 1 1 NA NA NA NA NA NA NA ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 144   : num [1:13] 1 1 NA NA NA NA NA NA NA NA ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 156   : num [1:13] 1 NA NA NA NA NA NA NA NA NA ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ averages           : tibble [2 × 14] (S3: tbl_df/tbl/data.frame)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$    : chr [1:2] "Straight Average:" "Weighted Average:"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 12 : num [1:2] 2.32 2.32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 24 : num [1:2] 1.27 1.27</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 36 : num [1:2] 1.08 1.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 48 : num [1:2] 1.02 1.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 60 : num [1:2] 1.01 1.01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 72 : num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 84 : num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 96 : num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 108: num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 120: num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 132: num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 144: num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 156: num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ selections         : tibble [2 × 14] (S3: tbl_df/tbl/data.frame)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$    : chr [1:2] "Selected:" "CDF:"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 12 : num [1:2] 2.32 3.29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 24 : num [1:2] 1.27 1.42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 36 : num [1:2] 1.08 1.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 48 : num [1:2] 1.02 1.03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 60 : num [1:2] 1.01 1.01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 72 : num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 84 : num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 96 : num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 108: num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 120: num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 132: num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 144: num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ 156: num [1:2] 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr [1:2] "tri_bundle" "list"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "type")= chr "paid"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># derive a similar bundle for reported dollars and counts</span></span></span>
 <span class="r-in"><span><span class="va">tri_rept_bundle</span> <span class="op">&lt;-</span> <span class="fu">create_triangle_bundle</span><span class="op">(</span><span class="va">loss_data_all</span>, value_col <span class="op">=</span> <span class="st">"reported"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in dplyr::mutate(dplyr::group_by(tri, .data$origin), value_lead = dplyr::lead(.data$value,     by = .data$age), value = value_lead/value):</span> <span style="color: #00BBBB;">ℹ</span> In argument: `value_lead = dplyr::lead(.data$value, by = .data$age)`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In group 1: `origin = 2006`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `dplyr::lead()`:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> `...` must be empty.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> Problematic argument:</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> by = age</span>
 <span class="r-in"><span><span class="va">tri_cnts_bundle</span> <span class="op">&lt;-</span> <span class="fu">create_triangle_bundle</span><span class="op">(</span><span class="va">loss_data_all</span>, value_col <span class="op">=</span> <span class="st">"n_claims"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in dplyr::mutate(dplyr::group_by(tri, .data$origin), value_lead = dplyr::lead(.data$value,     by = .data$age), value = value_lead/value):</span> <span style="color: #00BBBB;">ℹ</span> In argument: `value_lead = dplyr::lead(.data$value, by = .data$age)`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In group 1: `origin = 2006`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `dplyr::lead()`:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> `...` must be empty.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> Problematic argument:</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> by = age</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
