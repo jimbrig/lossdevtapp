@@ -6,10 +6,12 @@ All notable changes to this project will be documented in this file.
 ### Bug Fixes
 
 - Fixes for CMD CHECK
+- Change mapply to purrr::map2_chr
 
 ### Features
 
 - Bump package version
+- Add pkgdown site per #14
 
 ## [0.1.0] - 2022-06-02
 

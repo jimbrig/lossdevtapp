@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_lossdevtapp_1686184813748-push-trigger-input-set
+  identifier: Build_lossdevtapp_1686184813748pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_lossdevtapp_1686184813748
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
