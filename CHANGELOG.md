@@ -7,11 +7,23 @@ All notable changes to this project will be documented in this file.
 
 - Fixes for CMD CHECK
 - Change mapply to purrr::map2_chr
+- Fix fontawesome warnings
+- Remove library calls in examples
+- Remove unneeded deps
+- Fixes dplyr::lead and lag issue #19
+
+### Documentation
+
+- Document package
+- Enhance UI functions man pages
 
 ### Features
 
 - Bump package version
 - Add pkgdown site per #14
+- Add shinydashboardPlus
+- Export app_sys
+- Split out various triangle components for #18
 
 ## [0.1.0] - 2022-06-02
 
