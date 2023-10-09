@@ -1,9 +1,14 @@
 #' The application server-side
 #'
 #' @param input,output,session Internal parameters for {shiny}.
-#'     DO NOT REMOVE.
+#'
 #' @import shiny
-#' @noRd
+#'
+#' @importFrom cli cli_alert_info
+#' @importFrom dplyr pull filter
+#' @importFrom lubridate ymd year month
+#' @importFrom shiny reactiveVal observeEvent observe reactive showNotification removeNotification
+#' @importFrom shinyWidgets updateAirDateInput
 app_server <- function(input, output, session) {
   # Your application server logic
 
@@ -37,7 +42,11 @@ app_server <- function(input, output, session) {
   }, ignoreInit = TRUE)
 
   shiny::observe({
-    print(list("Selected Eval: ", selected_eval()))
+
+    cli::cli_alert_info(
+      text = paste0("Selected Eval: ", selected_eval())
+    )
+
   })
 
   # adjust loss data

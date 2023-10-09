@@ -29,13 +29,15 @@ Imports:
     shiny (>= 1.7.1),
     shinycssloaders,
     shinydashboard,
+    shinydashboardPlus,
     shinyjs,
     shinyWidgets,
     stats,
     tibble,
     tidyr,
     usethis,
-    utils
+    utils,
+    waiter
 Suggests: 
     actuar,
     devtools,
