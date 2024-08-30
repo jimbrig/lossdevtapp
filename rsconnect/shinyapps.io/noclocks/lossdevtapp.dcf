@@ -5,6 +5,6 @@ account: noclocks
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 12569090
-bundleId:
+bundleId: 9044908
 url: https://noclocks.shinyapps.io/lossdevtapp/
 version: 1
