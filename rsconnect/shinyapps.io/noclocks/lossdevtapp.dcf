@@ -1,0 +1,13 @@
+name: lossdevtapp
+title: lossdevtapp
+username: noclocks
+account: noclocks
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12569090
+bundleId:
+url: https://noclocks.shinyapps.io/lossdevtapp/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .harness/Build_lossdevtapp_1686184813748-pr-trigger-input-set-1686184814668.yaml|.harness/Build_lossdevtapp_1686184813748-push-trigger-input-set-1686184815757.yaml|.harness/pipelines/lossdevtapp-1686184800818.yaml|_pkgdown.yml|data-raw/claims_transactional.R|data-raw/loss_data.qs|data-raw/loss_data.R|data-raw/loss_data_all.qs|data-raw/trans.qs|examples/date_utils.R|examples/dev_tri.R|examples/doc_data.R|examples/triangle_bundle.R

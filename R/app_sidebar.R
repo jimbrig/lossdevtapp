@@ -20,8 +20,8 @@ app_sidebar <- function(...) {
     id = "sidebar",
     shinydashboard::sidebarUserPanel(
       get_shiny_current_user(),
-      subtitle = a(href = "#", icon("circle", class = "text-success"), "Online"),
-      image = "www/img/userimage.png" #   get_shiny_current_user_img()
+      subtitle = a(href = "#", htmltools::tags$i(class = "fa-solid fa-circle text-success"), "Online"),
+      image = "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" #   get_shiny_current_user_img()
     ),
 
     shinydashboard::sidebarSearchForm(

@@ -62,3 +62,10 @@ app_server <- function(input, output, session) {
 
    triangle_data <- mod_triangles_server("triangles_1", loss_data = loss_data, selected_eval = selected_eval)
 }
+
+
+
+#' @importFrom polished secure_server
+app_server_secure <- function() {
+  polished::secure_server(app_server)
+}

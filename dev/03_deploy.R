@@ -16,7 +16,7 @@
 ## Run checks ----
 ## Check the package before sending to prod
 devtools::check()
-rhub::check_for_cran()
+# rhub::check_for_cran()
 
 # Deploy
 
@@ -35,8 +35,5 @@ golem::add_shinyserver_file()
 ## If you want to deploy via a generic Dockerfile
 golem::add_dockerfile()
 
-## If you want to deploy to ShinyProxy
-golem::add_dockerfile_shinyproxy()
+rsconnect::deployApp()
 
-## If you want to deploy to Heroku
-golem::add_dockerfile_heroku()

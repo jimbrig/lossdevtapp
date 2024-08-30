@@ -61,6 +61,14 @@ app_ui <- function(request, ...) {
   )
 }
 
+#' @importFrom polished secure_ui
+app_ui_secure <- function(login_page = login_page_ui()) {
+  polished::secure_ui(
+    app_ui(),
+    sign_in_page_ui = login_page
+  )
+}
+
 
 
 #' Add external Resources to the Application
@@ -87,7 +95,6 @@ golem_add_external_resources <- function() {
       app_title = "lossdevtapp"
     ),
     shinyjs::useShinyjs(),
-    shinyWidgets::useShinydashboardPlus()#,
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert()
   )
