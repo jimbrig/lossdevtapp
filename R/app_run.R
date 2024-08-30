@@ -5,6 +5,7 @@
 #' @inheritParams shiny::shinyApp
 #'
 #' @export
+#' @importFrom polished polished_config
 #' @importFrom shiny shinyApp
 #' @importFrom golem with_golem_options
 run_app <- function(
